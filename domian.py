@@ -1,16 +1,33 @@
 import requests
 import socket
-url_base = "https://api.sandbox.namecheap.com/xml.response?ApiUser=duncannkhata&ApiKey=c01bb036e0074f26ab3a6bb56f4b31ea&UserName=duncannkhata&ClientIp=41.223.116.249&"
+user="duncannkhata"
+api_key = "c01bb036e0074f26ab3a6bb56f4b31ea"
+client_ip = "41.223.116.249"
+domain = "&SLD=duncan&TLD=com"
 
-get_url = url_base + "Command=namecheap.domains.dns.getHosts&SLD=duncan&TLD=com"
+base_url = "https://api.sandbox.namecheap.com/xml.response?ApiUser=" + user + "&ApiKey=" + api_key + "&UserName=" + user + "&ClientIp="+ client_ip
 
-response = requests.get(get_url)        # To execute get request 
+get_command = "&Command=namecheap.domains.dns.getHosts"
+get_url = base_url + get_command + domain
+
+get_response = requests.get(get_url)        # To execute get request 
 #print(response, "<br>")     # To print http response code  
-print(response.text)            # To print formatted JSON response
+# print(get_response.text)            # To print formatted JSON response
 
 # Name="erp" Type="A" Address="1.1.1.1" MXPref="10" TTL="60"
 
 #New Host
+
+post_command = "&Command=namecheap.domains.dns.setHosts"
+# add old host records to new record here using for loop
+records = "&HostName1=mynewcomp&RecordType1=A&Address1=12.56.67.78&TTL1=60"
+
+post_url = base_url + post_command + domain + records
+
+post_response = requests.post(post_url)
+print(post_response.text)
+
+print("*************************** \n",get_response.text) 
 
 
 """
