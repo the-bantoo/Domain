@@ -63,7 +63,8 @@ def add_host(sub_domain, server_ip):
     post_response = requests.post(post_url)
     #print(post_response.text)
     
-
+# you can add a new host to existing hosts by passing the full subdomain (from signup) and IP (from settings)
 add_host("fourth.duncan.com", "1.1.1.1")
 
+# you can get all hosts by passing a domain
 print(get_hosts("duncan.com").text)
